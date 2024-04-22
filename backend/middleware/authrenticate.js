@@ -21,8 +21,7 @@ const Authenticate = async (req, res, next) => {
       console.log("Error verifying token", err.message, token);
       return res.status(401).json({ message: "Unauthorized" });
     }
-
-    if (decoded) {
+    if (decoded !== null && decoded !== undefined) {
       const user = await User.findById(decoded.id);
       console.log(user);
       if (!user) {
