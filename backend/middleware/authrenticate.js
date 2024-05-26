@@ -5,7 +5,7 @@ require("dotenv").config();
 const public = process.env.JWT_PUBLIC_KEY;
 
 const Authenticate = async (req, res, next) => {
-  const openPaths = ["/auth/login", "/auth/logout"];
+  const openPaths = ["/auth/login", "/auth/logout", "/auth/register"];
   if (openPaths.includes(req.path)) {
     return next();
   }
