@@ -4,7 +4,7 @@ express.Router();
 
 const router = express.Router();
 
-const Post = require("../model/Post");
+const Post = require("../model/post");
 
 const upload = require("../middleware/image");
 

@@ -1,14 +1,14 @@
 //const { MongoClient, ServerApiVersion } = require('mongodb');
-const mongoose = require('mongoose');
-const express = require('express');
-const cors = require('cors');
-const Authenticate = require('./middleware/authrenticate');
-require('dotenv').config();
+const mongoose = require("mongoose");
+const express = require("express");
+const cors = require("cors");
+const Authenticate = require("./middleware/authrenticate");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-const uri = "mongodb+srv://palmarthc:ewX9AXhfO4ichcat@cluster1.riugioq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+const uri = process.env.ATLAS_URI;
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -17,7 +17,7 @@ mongoose.connect(uri, {
 
 const db = mongoose.connection;
 
-db.once('open', () => {
+db.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
@@ -67,12 +67,14 @@ app.use(Authenticate);
 app.use("/users", require("./router/users"));
 app.use("/posts", require("./router/posts"));
 app.use("/comments", require("./router/comments"));
+app.use("/matches", require("./router/matchs"));
+app.use("/messages", require("./router/messages"));
 
 app.use(express.static("public"));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 });
 
 app.listen(PORT, () => {

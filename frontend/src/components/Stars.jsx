@@ -55,8 +55,7 @@ const iconsSI = [
 const TechnologySphere = ({ Icon, size, color, position }) => (
   <group position={position}>
     <mesh>
-      <sphereGeometry args={[0.4, 32, 32]} />{" "}
-      {/* Aumentar el tamaño de la esfera */}
+      <sphereGeometry args={[0.4, 32, 32]} /> {/* Aumentar el tamaño de la esfera */}
       <meshStandardMaterial color={color} />
     </mesh>
     <Html center>
@@ -67,8 +66,7 @@ const TechnologySphere = ({ Icon, size, color, position }) => (
           left: "50%",
           transform: "translate(-50%, -50%)",
           zIndex: 10,
-        }}
-      >
+        }}>
         <Icon style={{ color, fontSize: `${size}px` }} />
       </div>
     </Html>
@@ -88,7 +86,7 @@ const ConnectionLine = ({ start, end }) => {
 
   return (
     <line geometry={lineGeometry}>
-      <lineBasicMaterial color="#ffffff" linewidth={1} />
+      <lineBasicMaterial color='#ffffff' linewidth={1} />
     </line>
   );
 };
@@ -145,7 +143,7 @@ const TechnologySpheres = () => {
 
 const StarsCanvas = () => {
   return (
-    <div className="w-full h-auto absolute inset-0 z-[-1]">
+    <div className='w-full h-auto absolute inset-0 z-[-1]'>
       <Canvas camera={{ position: [0, 0, 8] }}>
         <Suspense fallback={null}>
           <group rotation={[0, 0, Math.PI / 4]}>
