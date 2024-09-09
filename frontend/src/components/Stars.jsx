@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import React, { useRef, Suspense } from "react";
+import React, { useRef, Suspense, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html, Preload } from "@react-three/drei";
 import {
@@ -25,7 +25,6 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import PropTypes from "prop-types";
-import * as THREE from "three";
 
 // Lista de iconos con tamaños y colores específicos
 const iconsRI = [
@@ -55,7 +54,7 @@ const iconsSI = [
 const TechnologySphere = ({ Icon, size, color, position }) => (
   <group position={position}>
     <mesh>
-      <sphereGeometry args={[0.4, 32, 32]} /> {/* Aumentar el tamaño de la esfera */}
+      <sphereGeometry args={[0.4, 32, 32]} />
       <meshStandardMaterial color={color} />
     </mesh>
     <Html center>
@@ -80,22 +79,6 @@ TechnologySphere.propTypes = {
   position: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
-const ConnectionLine = ({ start, end }) => {
-  const points = [start, end].map((p) => new THREE.Vector3(...p));
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-
-  return (
-    <line geometry={lineGeometry}>
-      <lineBasicMaterial color='#ffffff' linewidth={1} />
-    </line>
-  );
-};
-
-ConnectionLine.propTypes = {
-  start: PropTypes.arrayOf(PropTypes.number).isRequired,
-  end: PropTypes.arrayOf(PropTypes.number).isRequired,
-};
-
 // Función para generar posiciones en una esfera utilizando el método de Fibonacci
 const fibonacciSphere = (samples, radius) => {
   const points = [];
@@ -115,10 +98,23 @@ const fibonacciSphere = (samples, radius) => {
 
 const TechnologySpheres = () => {
   const groupRef = useRef();
+  const [rotationSpeed, setRotationSpeed] = useState(0.1); // Control de velocidad
   const positions = fibonacciSphere(iconsRI.length + iconsSI.length, 3.0);
 
+  // Ajuste la velocidad de rotación en función del desplazamiento del scroll
+  const handleScroll = (event) => {
+    setRotationSpeed(event.deltaY * 0.0005); // Aumenta o disminuye la velocidad según el scroll
+  };
+
+  useEffect(() => {
+    window.addEventListener("wheel", handleScroll); // Detecta el desplazamiento
+    return () => {
+      window.removeEventListener("wheel", handleScroll); // Limpia el evento
+    };
+  }, []);
+
   useFrame((state, delta) => {
-    groupRef.current.rotation.y += delta * 0.1;
+    groupRef.current.rotation.y += delta * rotationSpeed; // Aplica la rotación con la velocidad ajustada
   });
 
   return (
@@ -133,7 +129,6 @@ const TechnologySpheres = () => {
               color={iconObj.color}
               position={position}
             />
-            <ConnectionLine start={position} end={[0, 0, 0]} />
           </React.Fragment>
         );
       })}
@@ -143,7 +138,9 @@ const TechnologySpheres = () => {
 
 const StarsCanvas = () => {
   return (
-    <div className='w-full h-auto absolute inset-0 z-[-1]'>
+    <div className='w-full lg:w-1/2 h-[600px] relative z-10'>
+      {" "}
+      {/* Controlas el tamaño del Canvas */}
       <Canvas camera={{ position: [0, 0, 8] }}>
         <Suspense fallback={null}>
           <group rotation={[0, 0, Math.PI / 4]}>
