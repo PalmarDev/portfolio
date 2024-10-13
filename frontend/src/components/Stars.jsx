@@ -138,7 +138,7 @@ const TechnologySpheres = () => {
 
 const StarsCanvas = () => {
   return (
-    <div className='w-full lg:w-1/2 h-[600px] relative z-10'>
+    <div className='w-[100%] lg:w-1/2 h-[500px] relative z-10'>
       {" "}
       {/* Controlas el tamaño del Canvas */}
       <Canvas camera={{ position: [0, 0, 8] }}>

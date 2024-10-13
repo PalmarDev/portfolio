@@ -29,33 +29,43 @@ const Biography = () => {
         </Tilt>
       </div>
       <div className='flex flex-col items-center justify-center w-full lg:w-1/2 p-8 text-[#dcab6b]'>
-        <h2 className='text-lg md:text-xl lg:text-3xl font-bold p-4 text-center'>
-          {Biografia.title}
-        </h2>
-        <br />
-        <p
-          className='text-sm md:text-md lg:text-lg text-justify px-4'
-          style={{ textIndent: "1.5rem" }}>
-          {Biografia.paragraph1}
-        </p>
-        <br />
-        <p
-          className='text-sm md:text-md lg:text-lg text-justify px-4'
-          style={{ textIndent: "1.5rem" }}>
-          {Biografia.paragraph2}
-        </p>
-        <br />
-        <p
-          className='text-sm md:text-md lg:text-lg text-justify px-4'
-          style={{ textIndent: "1.5rem" }}>
-          {Biografia.paragraph3}
-        </p>
-        <br />
-        <p
-          className='text-sm md:text-md lg:text-lg text-justify px-4'
-          style={{ textIndent: "1.5rem" }}>
-          {Biografia.paragraph4}
-        </p>
+        <div>
+          <Tilt>
+            <motion.div
+              variants={fadeIn("left", "spring", 1 * 0.5, 0.75)}
+              className='w-auto flex flex-col justify-center'>
+              <div className='border-2 border-[#dcab6b] bg-[#6e0d25] opacity-[.7] rounded-3xl drop-shadow-lg shadow-[0_0_15px_rgba(119,78,36,0.7)] p-3'>
+                <h2 className='text-lg md:text-xl lg:text-3xl font-bold p-4 text-center'>
+                  {Biografia.title}
+                </h2>
+                <br />
+                <p
+                  className='text-sm md:text-md lg:text-lg text-justify px-4'
+                  style={{ textIndent: "1.5rem" }}>
+                  {Biografia.paragraph1}
+                </p>
+                <br />
+                <p
+                  className='text-sm md:text-md lg:text-lg text-justify px-4'
+                  style={{ textIndent: "1.5rem" }}>
+                  {Biografia.paragraph2}
+                </p>
+                <br />
+                <p
+                  className='text-sm md:text-md lg:text-lg text-justify px-4'
+                  style={{ textIndent: "1.5rem" }}>
+                  {Biografia.paragraph3}
+                </p>
+                <br />
+                <p
+                  className='text-sm md:text-md lg:text-lg text-justify px-4'
+                  style={{ textIndent: "1.5rem" }}>
+                  {Biografia.paragraph4}
+                </p>
+              </div>
+            </motion.div>
+          </Tilt>
+        </div>
       </div>
     </div>
   );
